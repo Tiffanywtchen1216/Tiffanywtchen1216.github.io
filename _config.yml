@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next_8_2
+theme: lap
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
