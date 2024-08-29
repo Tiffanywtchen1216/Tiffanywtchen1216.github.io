@@ -1,0 +1,88 @@
+
+<div id="desktopShare" class="share-buttons">
+  <a href="#" onclick="shareOnFacebook()" target="_blank" class="share-button facebook-share">
+    <i class="fab fa-facebook-f"></i>分享
+  </a>
+  <a href="#" onclick="shareOnTwitter()" target="_blank" class="share-button x-share">
+    <i class="fab fa-x-twitter"></i>分享
+  </a>
+  <a href="#" onclick="shareOnLinkedIn()" target="_blank" class="share-button linkedin-share">
+    <i class="fab fa-linkedin-in"></i>分享
+  </a>
+  <button class="share-button copy-link" onclick="copyLink()">
+    <i class="fas fa-link"></i>複製連結
+  </button>
+</div>
+
+<div id="mobileShare" class="share-buttons" style="display: none;">
+  <button onclick="mobileShare()" class="share-button">
+    <i class="fas fa-share-alt"></i>分享
+  </button>
+  <button class="share-button copy-link" onclick="copyLink()">
+    <i class="fas fa-link"></i>複製連結
+  </button>
+</div>
+
+<script>
+function isMobileDevice() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+function setupShareButtons() {
+  var desktopButtons = document.getElementById('desktopShare');
+  var mobileButtons = document.getElementById('mobileShare');
+
+  if (isMobileDevice()) {
+    desktopButtons.style.display = 'none';
+    mobileButtons.style.display = 'flex';
+  } else {
+    desktopButtons.style.display = 'flex';
+    mobileButtons.style.display = 'none';
+  }
+
+  if (window.location.href.indexOf('highlight=') > -1) {
+    history.replaceState(null, document.title, window.location.pathname);
+    window.location.reload();
+  }
+}
+
+window.onload = setupShareButtons;
+
+function shareOnFacebook() {
+  var url = encodeURIComponent(window.location.href);
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank');
+}
+
+function shareOnTwitter() {
+  var url = encodeURIComponent(window.location.href);
+  window.open('https://x.com/intent/tweet?url=' + url, '_blank');
+}
+
+function shareOnLinkedIn() {
+  var url = encodeURIComponent(window.location.href);
+  window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + url, '_blank');
+}
+
+async function mobileShare() {
+  const title = document.title;
+  const url = window.location.href;
+  const text = "{{ page.title }}";
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, text, url });
+      console.log("內容已成功分享");
+    } catch (error) {
+      console.log("分享失敗", error);
+    }
+  }
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    alert("連結已複製到剪貼簿！");
+  }, function(err) {
+    console.error('無法複製連結: ', err);
+  });
+}
+</script>
