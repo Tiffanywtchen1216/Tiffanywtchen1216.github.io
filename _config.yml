@@ -102,5 +102,5 @@ theme: clean-blog
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:tiffanywtchen/tiffanywtchen.github.io.git
+  repo: git@github.com:Tiffanywtchen1216/Tiffanywtchen1216.github.io.git
   branch: blog
